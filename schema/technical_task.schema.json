@@ -1,0 +1,156 @@
+{
+  "$defs": {
+    "ApiKind": {
+      "enum": [
+        "endpoint",
+        "sdk_method",
+        "ws_subscription",
+        "action_type"
+      ],
+      "title": "ApiKind",
+      "type": "string"
+    },
+    "ApiReference": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "API name exactly as written, e.g. 'userSetAbstraction' or 'POST /exchange'",
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/ApiKind"
+        },
+        "relation": {
+          "$ref": "#/$defs/ApiRelation",
+          "description": "Why this API is mentioned in the issue"
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "relation"
+      ],
+      "title": "ApiReference",
+      "type": "object"
+    },
+    "ApiRelation": {
+      "enum": [
+        "new_requested",
+        "broken",
+        "docs_unclear"
+      ],
+      "title": "ApiRelation",
+      "type": "string"
+    },
+    "Language": {
+      "enum": [
+        "uk",
+        "en",
+        "mixed"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "Network": {
+      "enum": [
+        "mainnet",
+        "testnet",
+        "both",
+        "not_specified"
+      ],
+      "title": "Network",
+      "type": "string"
+    },
+    "TaskType": {
+      "enum": [
+        "bug",
+        "feature",
+        "docs",
+        "question",
+        "security"
+      ],
+      "title": "TaskType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "description": "Short title of the issue",
+      "title": "Title",
+      "type": "string"
+    },
+    "task_type": {
+      "$ref": "#/$defs/TaskType"
+    },
+    "summary": {
+      "description": "1-2 sentence summary of the problem or request",
+      "title": "Summary",
+      "type": "string"
+    },
+    "component": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Affected SDK area, or null if not stated",
+      "title": "Component"
+    },
+    "sdk_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "SDK version if mentioned, else null",
+      "title": "Sdk Version"
+    },
+    "network": {
+      "$ref": "#/$defs/Network"
+    },
+    "expected_behavior": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "What the reporter expects to happen, or null",
+      "title": "Expected Behavior"
+    },
+    "api_references": {
+      "description": "APIs mentioned; empty list if none",
+      "items": {
+        "$ref": "#/$defs/ApiReference"
+      },
+      "title": "Api References",
+      "type": "array"
+    },
+    "source_language": {
+      "$ref": "#/$defs/Language"
+    }
+  },
+  "required": [
+    "title",
+    "task_type",
+    "summary",
+    "component",
+    "sdk_version",
+    "network",
+    "expected_behavior",
+    "api_references",
+    "source_language"
+  ],
+  "title": "TechnicalTask",
+  "type": "object"
+}
